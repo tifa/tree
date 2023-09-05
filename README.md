@@ -28,11 +28,7 @@ aws ssm put-parameter --type SecureString --overwrite \
     --value <PASSWORD>
 ```
 
-Copy and update the environment file.
-
-```sh
-cp .env.example .env
-```
+Update the environment file `.env`.
 
 Build and start the service.
 
