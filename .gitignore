@@ -1,0 +1,8 @@
+venv/
+
+.mypy_cache/
+.ruff_Cache/
+
+data/
+
+.env
