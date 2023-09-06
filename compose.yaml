@@ -9,11 +9,6 @@ services:
     container_name: tree
     entrypoint: /app/entrypoint.sh
     hostname: ${HOSTNAME:-}
-    environment:
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      PROTOCOL: ${PROTOCOL}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.tree.entrypoints=web"
@@ -26,7 +21,7 @@ services:
       - proxy
 
   mysql:
-    image: mysql:5.7.42
+    image: mysql:8.0.29
     container_name: mysql
     hostname: ${HOSTNAME:-}
     environment:

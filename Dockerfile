@@ -1,24 +1,21 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG WEBTREES_VERSION=2.0.26
+ARG WEBTREES_VERSION=2.1.12
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         apache2 \
         # ca-certificates to dl from github
         ca-certificates \
-        duply \
-        # envsubst
-        gettext-base \
-        php7.2 \
-        php7.2-curl \
-        php7.2-gd \
-        php7.2-intl \
-        php7.2-mbstring \
-        php7.2-mysql \
-        php7.2-xml \
-        php7.2-zip \
+        php8.1 \
+        php8.1-curl \
+        php8.1-gd \
+        php8.1-intl \
+        php8.1-mbstring \
+        php8.1-mysql \
+        php8.1-xml \
+        php8.1-zip \
         wget \
         unzip \
         vim \
