@@ -4,5 +4,3 @@ venv/
 .ruff_Cache/
 
 data/
-
-.env
