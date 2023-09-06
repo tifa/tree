@@ -9,6 +9,8 @@ RUN apt-get update \
         # ca-certificates to dl from github
         ca-certificates \
         duply \
+        # envsubst
+        gettext-base \
         php7.2 \
         php7.2-curl \
         php7.2-gd \
@@ -30,7 +32,6 @@ RUN apt-get update \
     # Webtrees recommends 777 for this folder
     && chmod 777 /var/www/html/data/
 
-COPY ./assets/apache2/.htaccess /var/www/html/
-COPY ./assets/entrypoint.sh /app/
+COPY ./assets/ /app/
 
 RUN chmod +x /app/entrypoint.sh

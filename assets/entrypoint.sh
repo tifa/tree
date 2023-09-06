@@ -1,7 +1,13 @@
 #!/bin/sh
 
-# Start apache2
+# webtrees configs
+envsubst < /app/webtrees/config.ini.php > /var/www/html/data/config.ini.php
+
+# apache2 .htaccess
+cp /app/apache2/.htaccess /var/www/html/
+
+# start apache2
 service apache2 start
 
-# Sleep
+# sleep
 sleep infinity
