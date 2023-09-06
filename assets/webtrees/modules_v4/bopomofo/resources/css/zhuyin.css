@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Open Sans";
+    src: url("https://tree.chyouhwu.com/modules_v4/bopomofo/resources/fonts/ToneOZ-Zhuyin-Kai-Traditional.ttf");
+    unicode-range: U+4E00-9FFF;
+    size-adjust: 170%;
+}
+
+.table tbody td,
+.table tbody th,
+.table td,
+.table th,
+.table thead th,
+table tbody td,
+table tbody th,
+table td,
+table th,
+table thead th {
+    font-size: 1em;
+}
+
+.table-sm tbody td,
+.table-sm tbody th,
+.table-sm td,
+.table-sm th,
+.table-sm thead th {
+    font-size: 1em;
+}
+
+.small {
+    font-size: 1em;
+}
+
+.overflow-hidden {
+    overflow: inherit !important;
+}

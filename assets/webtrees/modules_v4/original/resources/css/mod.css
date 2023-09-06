@@ -1,0 +1,24 @@
+.table tbody td,
+.table tbody th,
+.table td,
+.table th,
+.table thead th,
+table tbody td,
+table tbody th,
+table td,
+table th,
+table thead th {
+    font-size: 1em;
+}
+
+.table-sm tbody td,
+.table-sm tbody th,
+.table-sm td,
+.table-sm th,
+.table-sm thead th {
+    font-size: 1em;
+}
+
+.small {
+    font-size: 1em;
+}
