@@ -1,0 +1,8 @@
+client_config_backend: settings
+client_config:
+   client_id: ${GDRIVE_CLIENT_ID}
+   client_secret: ${GDRIVE_CLIENT_SECRET}
+save_credentials: True
+save_credentials_backend: file
+save_credentials_file: /root/.duply/tree/conf.cache
+get_refresh_token: True

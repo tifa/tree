@@ -3,4 +3,7 @@ venv/
 .mypy_cache/
 .ruff_Cache/
 
+.env
 data/
+
+webtrees.sql

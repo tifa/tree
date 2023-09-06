@@ -1,0 +1,9 @@
+GPG_KEY='disabled'
+TARGET='gdocs://${GDRIVE_EMAIL}/${GDRIVE_FOLDER}'
+SOURCE='/backup'
+MAX_AGE=1M
+MAX_FULL_BACKUPS=4
+MAX_FULLS_WITH_INCRS=4
+MAX_FULLBKP_AGE=1W
+DUPL_PARAMS="$${x}DUPL_PARAMS --full-if-older-than $${x}MAX_FULLBKP_AGE "
+export GOOGLE_DRIVE_SETTINGS=/root/.duply/tree/gdrive

@@ -9,6 +9,15 @@ services:
     container_name: tree
     entrypoint: /app/entrypoint.sh
     hostname: ${HOSTNAME:-}
+    environment:
+      GDRIVE_CLIENT_ID: ${GDRIVE_CLIENT_ID:-}
+      GDRIVE_CLIENT_SECRET: ${GDRIVE_CLIENT_SECRET:-}
+      GDRIVE_EMAIL: ${GDRIVE_EMAIL}
+      GDRIVE_FOLDER: ${GDRIVE_FOLDER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.tree.entrypoints=web"
@@ -17,6 +26,7 @@ services:
       - "traefik.http.services.tree.loadbalancer.server.port=80"
     volumes:
       - ${DATA_DIR}/tree:/var/www/html/data
+      - backup:/backup
     networks:
       - proxy
 
@@ -38,5 +48,9 @@ services:
       - "traefik.http.services.mysql.loadbalancer.server.port=3306"
     volumes:
       - ${DATA_DIR}/db:/var/lib/mysql
+      - backup:/backup
     networks:
       - proxy
+
+volumes:
+  backup:
