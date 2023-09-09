@@ -10,10 +10,9 @@ echo "0 2 * * * duply tree backup" | crontab -
 # webtrees themes
 cp -r /app/webtrees/modules_v4/* /var/www/html/modules_v4/
 
-# apache2 .htaccess
+# apache2
 cp /app/apache2/.htaccess /var/www/html/
-
-# start apache2
+a2enmod ssl
 service apache2 start
 
 # sleep

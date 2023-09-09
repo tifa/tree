@@ -19,11 +19,12 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.tree.entrypoints=web"
-      - "traefik.http.routers.tree.rule=Host(`${HOSTNAME:-}`)"
-      - "traefik.http.routers.tree.service=tree"
-      - "traefik.http.services.tree.loadbalancer.server.port=80"
+      traefik.enable: true
+      traefik.http.routers.tree.rule: Host(`${HOSTNAME}`)
+      traefik.http.routers.tree.entrypoints: websecure
+      traefik.http.routers.tree.tls: true
+      traefik.http.routers.tree.service: tree
+      traefik.http.services.tree.loadbalancer.server.port: 443
     volumes:
       - ${DATA_DIR}/tree:/var/www/html/data
       - backup:/backup
@@ -41,11 +42,11 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     restart: always
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.mysql.entrypoints=mysql"
-      - "traefik.http.routers.mysql.rule=Host(`${HOSTNAME}`)"
-      - "traefik.http.routers.mysql.service=mysql"
-      - "traefik.http.services.mysql.loadbalancer.server.port=3306"
+      traefik.enable: true
+      traefik.http.routers.mysql.rule: Host(`${HOSTNAME}`)
+      traefik.http.routers.mysql.entrypoints: mysql
+      traefik.http.routers.mysql.service: mysql
+      traefik.http.services.mysql.loadbalancer.server.port: 3306
     volumes:
       - ${DATA_DIR}/db:/var/lib/mysql
       - backup:/backup
