@@ -154,6 +154,8 @@ use Fisharebest\Webtrees\Http\RequestHandlers\TreePage; // Used for getting tree
                 <?= app(ModuleService::class)->findByInterface(ModuleFooterInterface::class)->map(static function (ModuleFooterInterface $module) use ($request): string {
                     return $module->getFooter($request);
                 })->implode('') ?>
+            </div><!-- /.container-lg -->
+            <div class="container-lg">
                 Theme: <a href="https://github.com/jchue/argon-webtrees-theme">Argon</a>
             </div><!-- /.container-lg -->
         </footer><!-- /#site-footer.wt-footers -->
