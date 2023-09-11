@@ -6,6 +6,7 @@ Private family genealogy site.
 
 1796 - 2017, Taiwan to USA.
 
+[![Website screenshot](docs/assets/screenshot.png)][site]
 
 ## Added Features
 
