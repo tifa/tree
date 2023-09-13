@@ -20,11 +20,6 @@ include .env
 
 exec = @docker exec -it $$(docker ps -asf "name=$(1)" | grep -v CONTAINER | cut -d' ' -f1) bash -c "$(2)"
 
-start backup: MYSQL_ROOT_PASSWORD=$(shell aws ssm get-parameter --name /app/tree/mysql_root_password --with-decryption --query "Parameter.Value" --output text)
-start down: MYSQL_PASSWORD=$(shell aws ssm get-parameter --name /app/tree/mysql_password --with-decryption --query "Parameter.Value" --output text)
-start backup: GDRIVE_CLIENT_ID=$(shell aws ssm get-parameter --name /app/tree/gdrive_client_id --with-decryption --query "Parameter.Value" --output text)
-start backup: GDRIVE_CLIENT_SECRET=$(shell aws ssm get-parameter --name /app/tree/gdrive_client_secret --with-decryption --query "Parameter.Value" --output text)
-
 .git/hooks/pre-commit:
 	$(ACTIVATE) pre-commit install
 	@touch $@
@@ -48,7 +43,7 @@ venv/.build_touchfile: Dockerfile $(ASSETS)
 start: build  # Start service
 	@GDRIVE_CLIENT_ID=$(GDRIVE_CLIENT_ID) \
 		GDRIVE_CLIENT_SECRET=$(GDRIVE_CLIENT_SECRET) \
-		MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) \
+		MYSQL_ROOT_PASSWORD=$(MYSQL_PASSWORD) \
 		MYSQL_PASSWORD=$(MYSQL_PASSWORD) \
 		docker compose up --detach
 
@@ -83,15 +78,20 @@ check: venv  # Run pre-commit hooks
 clean: stop  # Clean all files
 	@git clean -Xdf
 
+.PHONY: open
+open:  # Open webtrees
+	open $(PROTOCOL)://$(HOSTNAME)
+
 .PHONY: backup
 backup:  # Back up data
 	$(call exec,$(PROJECT_NAME),rm -rf /backup/*)
-	$(call exec,mysql,MYSQL_PWD=$(MYSQL_ROOT_PASSWORD) mysqldump -u root $(MYSQL_DATABASE) > /backup/webtrees.sql)
+	$(call exec,mysql,MYSQL_PWD=$(MYSQL_PASSWORD) mysqldump -u root $(MYSQL_DATABASE) > /backup/webtrees.sql)
 	$(call exec,$(PROJECT_NAME),cp -r /var/www/html/data /backup/)
+	$(call exec,$(PROJECT_NAME),duply tree backup)
 
 .PHONY: restore
 restore:  # Restore data
 	$(call exec,$(PROJECT_NAME),duply tree restore /backup/)
-	$(call exec,mysql,MYSQL_PWD=$(MYSQL_ROOT_PASSWORD) mysql -u root $(MYSQL_DATABASE) < /backup/webtrees.sql)
+	$(call exec,mysql,MYSQL_PWD=$(MYSQL_PASSWORD) mysql -u root $(MYSQL_DATABASE) < /backup/webtrees.sql)
 	$(call exec,$(PROJECT_NAME),rm -rf /var/www/html/data/*)
 	$(call exec,$(PROJECT_NAME),cp -r /backup/data /var/www/html/)
