@@ -76,7 +76,7 @@ check: venv  # Run pre-commit hooks
 
 .PHONY: clean
 clean: stop  # Clean all files
-	@git clean -Xdf
+	@git clean -xdf -e .env
 
 .PHONY: open
 open:  # Open webtrees
