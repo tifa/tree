@@ -1,0 +1,6 @@
+*.html  linguist-detectable=false
+*.phtml linguist-detectable=false
+
+*.css   diff=css
+*.php   diff=php
+*.sh    diff=bash
