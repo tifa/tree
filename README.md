@@ -10,7 +10,7 @@ Private family genealogy site.
 
 ## Added Features
 
-- [Zhuyin][wiki-zhuyin] for Traditional Chinese support
+- [Zhuyin][wiki-zhuyin] for Traditional Chinese
 
 
 ## Recovery Steps
@@ -31,7 +31,6 @@ make start
 ```
 
 
-[aws-cli]: https://aws.amazon.com/cli/
 [wiki-zhuyin]: https://en.wikipedia.org/wiki/Zhuyin
 [repo-proxy]: https://github.com/tifa/proxy
 [site]: https://tree.chyouhwu.com
