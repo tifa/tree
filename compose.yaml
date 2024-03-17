@@ -8,10 +8,6 @@ services:
     container_name: tree
     entrypoint: /app/entrypoint.sh
     environment:
-      GDRIVE_CLIENT_ID: ${GDRIVE_CLIENT_ID}
-      GDRIVE_CLIENT_SECRET: ${GDRIVE_CLIENT_SECRET}
-      GDRIVE_EMAIL: ${GDRIVE_EMAIL}
-      GDRIVE_FOLDER: ${GDRIVE_FOLDER}
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
