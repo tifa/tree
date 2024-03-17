@@ -1,6 +1,5 @@
----
 networks:
-  proxy:
+  tifa:
     external: true
 
 services:
@@ -8,50 +7,30 @@ services:
     image: tree
     container_name: tree
     entrypoint: /app/entrypoint.sh
-    hostname: ${HOSTNAME:-}
     environment:
-      GDRIVE_CLIENT_ID: ${GDRIVE_CLIENT_ID:-}
-      GDRIVE_CLIENT_SECRET: ${GDRIVE_CLIENT_SECRET:-}
+      GDRIVE_CLIENT_ID: ${GDRIVE_CLIENT_ID}
+      GDRIVE_CLIENT_SECRET: ${GDRIVE_CLIENT_SECRET}
       GDRIVE_EMAIL: ${GDRIVE_EMAIL}
       GDRIVE_FOLDER: ${GDRIVE_FOLDER}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+    hostname: ${HOSTNAME}
     labels:
       traefik.enable: true
       traefik.http.routers.tree.rule: Host(`${HOSTNAME}`)
       traefik.http.routers.tree.entrypoints: websecure
-      traefik.http.routers.tree.tls: true
-      traefik.http.routers.tree.service: tree
-      traefik.http.services.tree.loadbalancer.server.port: 443
-    volumes:
-      - ${DATA_DIR}/tree:/var/www/html/data
-      - backup:/backup
+      traefik.http.routers.tree.tls.certresolver: letsencrypt
+      traefik.http.services.tree.loadbalancer.server.port: 80
     networks:
-      - proxy
-
-  mysql:
-    image: mysql:8.0.29
-    container_name: mysql
-    hostname: ${HOSTNAME:-}
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      - tifa
     restart: always
-    labels:
-      traefik.enable: true
-      traefik.http.routers.mysql.rule: Host(`${HOSTNAME}`)
-      traefik.http.routers.mysql.entrypoints: mysql
-      traefik.http.routers.mysql.service: mysql
-      traefik.http.services.mysql.loadbalancer.server.port: 3306
     volumes:
-      - ${DATA_DIR}/db:/var/lib/mysql
-      - backup:/backup
-    networks:
-      - proxy
+      - ./backup/data:/var/www/html/data  # webtrees data files
+      - ./backup/mysql:/backup/mysql  # webtrees mysql data
+      - tifa_mysql:/var/lib/mysql
 
 volumes:
-  backup:
+  tifa_mysql:
+    external: true

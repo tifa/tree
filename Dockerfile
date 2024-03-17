@@ -10,7 +10,6 @@ RUN apt-get update \
         ca-certificates \
         cron \
         default-mysql-client \
-        duply \
         # envsubst
         gettext-base \
         php8.1 \
@@ -21,11 +20,8 @@ RUN apt-get update \
         php8.1-mysql \
         php8.1-xml \
         php8.1-zip \
-        # duply
-        python3-pydrive \
         wget \
         unzip \
-        vim \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget --progress=dot:giga https://github.com/fisharebest/webtrees/releases/download/${WEBTREES_VERSION}/webtrees-${WEBTREES_VERSION}.zip \
@@ -39,5 +35,5 @@ RUN wget --progress=dot:giga https://github.com/fisharebest/webtrees/releases/do
 
 COPY ./assets/ /app/
 
-RUN duply 'tree' create \
+RUN mkdir -p /backup/mysql \
     && chmod +x /app/entrypoint.sh

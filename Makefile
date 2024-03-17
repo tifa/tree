@@ -41,11 +41,7 @@ venv/.build_touchfile: Dockerfile $(ASSETS)
 
 .PHONY: start
 start: build  # Start service
-	@GDRIVE_CLIENT_ID=$(GDRIVE_CLIENT_ID) \
-		GDRIVE_CLIENT_SECRET=$(GDRIVE_CLIENT_SECRET) \
-		MYSQL_ROOT_PASSWORD=$(MYSQL_PASSWORD) \
-		MYSQL_PASSWORD=$(MYSQL_PASSWORD) \
-		docker compose up --detach
+	@docker compose --project-name $(PROJECT_NAME) up --detach
 
 .PHONY: restart
 restart: stop start  # Restart service
@@ -80,18 +76,9 @@ clean: stop  # Clean all files
 
 .PHONY: open
 open:  # Open webtrees
-	open $(PROTOCOL)://$(HOSTNAME)
+	open https://$(HOSTNAME)
 
 .PHONY: backup
 backup:  # Back up data
-	$(call exec,$(PROJECT_NAME),rm -rf /backup/*)
-	$(call exec,mysql,MYSQL_PWD=$(MYSQL_PASSWORD) mysqldump -u root $(MYSQL_DATABASE) > /backup/webtrees.sql)
-	$(call exec,$(PROJECT_NAME),cp -r /var/www/html/data /backup/)
-	$(call exec,$(PROJECT_NAME),duply tree backup)
-
-.PHONY: restore
-restore:  # Restore data
-	$(call exec,$(PROJECT_NAME),duply tree restore /backup/)
-	$(call exec,mysql,MYSQL_PWD=$(MYSQL_PASSWORD) mysql -u root $(MYSQL_DATABASE) < /backup/webtrees.sql)
-	$(call exec,$(PROJECT_NAME),rm -rf /var/www/html/data/*)
-	$(call exec,$(PROJECT_NAME),cp -r /backup/data /var/www/html/)
+	$(call exec,$(PROJECT_NAME),MYSQL_PWD=$(MYSQL_PASSWORD) mysqldump -h mysql -u root $(MYSQL_DATABASE) > /backup/mysql/webtrees.sql)
+	@zip -r ./backup/tree.zip ./backup

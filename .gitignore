@@ -4,4 +4,4 @@ venv/
 .ruff_Cache/
 
 .env
-data/
+backup/

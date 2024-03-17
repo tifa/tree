@@ -15,8 +15,7 @@ Private family genealogy site.
 
 ## Recovery Steps
 
-Set up the [reverse proxy][repo-proxy].
-
+Set up [vps][vps] with reverse proxy.
 
 Copy the example environment file and update the configs.
 
@@ -30,6 +29,8 @@ Build and start the service.
 make start
 ```
 
+
+[vps]: https://github.com/tifa/vps
 
 [wiki-zhuyin]: https://en.wikipedia.org/wiki/Zhuyin
 [repo-proxy]: https://github.com/tifa/proxy
