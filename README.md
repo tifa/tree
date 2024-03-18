@@ -28,27 +28,29 @@ Build and start the service.
 make start
 ```
 
+## Backup and Recovery
+
+TODO: Back up to remote storage.
+
 ### Backup
 
-Back up the MySQL `webtrees` database and the `data` directory.
+Schedule this backup job on the local machine.
 
-```sh
-make backup
+```
+0 22 * * * cd /path/to/repo && ./scripts/backup.sh
 ```
 
-### Recovery steps
+- Backs up the MySQL `webtrees` database and `data` directory
+- Zips the backup files and downloads to the local `backup` directory
+- Cleans up local backups greater than 7 days
+
+### Recovery
 
 Create the `webtrees` database and user.
 
-Modify `data/config.ini.php` with updated configs.
+Import the MySQL backup.
 
-Import the MySQL backup and restore the `data` directory.
-
-In the Docker container, set permissions for the `data` directory.
-
-```sh
-chown -R www-data:www-data /var/www/html/data
-```
+Restore the `data` directory to `/var/www/html/` in the container and modify `/var/www/html/data/config.ini.php` with latest configs.
 
 
 [repo-vps]: https://github.com/tifa/vps
