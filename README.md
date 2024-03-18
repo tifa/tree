@@ -12,10 +12,9 @@ Private family genealogy site.
 
 - [Zhuyin][wiki-zhuyin] for Traditional Chinese
 
+## Setup
 
-## Recovery Steps
-
-Set up [vps][vps] with reverse proxy.
+Set up [vps][repo-vps] with reverse proxy.
 
 Copy the example environment file and update the configs.
 
@@ -29,9 +28,29 @@ Build and start the service.
 make start
 ```
 
+### Backup
 
-[vps]: https://github.com/tifa/vps
+Back up the MySQL `webtrees` database and the `data` directory.
 
+```sh
+make backup
+```
+
+### Recovery steps
+
+Create the `webtrees` database and user.
+
+Modify `data/config.ini.php` with updated configs.
+
+Import the MySQL backup and restore the `data` directory.
+
+In the Docker container, set permissions for the `data` directory.
+
+```sh
+chown -R www-data:www-data /var/www/html/data
+```
+
+
+[repo-vps]: https://github.com/tifa/vps
+[site]: https://tree.tifa.dev
 [wiki-zhuyin]: https://en.wikipedia.org/wiki/Zhuyin
-[repo-proxy]: https://github.com/tifa/proxy
-[site]: https://tree.chyouhwu.com

@@ -31,7 +31,8 @@ RUN wget --progress=dot:giga https://github.com/fisharebest/webtrees/releases/do
     && rmdir /var/www/webtrees \
     && rm /var/www/html/index.html \
     # Webtrees recommends 777 for this folder
-    && chmod 777 /var/www/html/data/
+    && chmod 777 /var/www/html/data/ \
+    && chown -R www-data:www-data /var/www/html/
 
 COPY ./assets/ /app/
 
