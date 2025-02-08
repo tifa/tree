@@ -82,4 +82,4 @@ open:  # Open webtrees
 backup:  # Back up data
 	$(call exec,$(PROJECT_NAME),MYSQL_PWD=$(MYSQL_PASSWORD) mysqldump -h mysql -u root $(MYSQL_DATABASE) > /backup/webtrees.sql)
 	@docker cp $(PROJECT_NAME):/backup/webtrees.sql ./backup/
-	@zip -r ./backup/tree.zip ./backup/data ./backup/webtrees.sql
+	@tar -czvf -r ./backup/tree.zip ./backup/data ./backup/webtrees.sql
