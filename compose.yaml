@@ -8,12 +8,12 @@ services:
     container_name: tree
     entrypoint: /app/entrypoint.sh
     environment:
-      HOSTNAME: ${HOSTNAME:?}
       MYSQL_DATABASE: ${MYSQL_DATABASE:?}
       MYSQL_HOST: ${MYSQL_HOST:?}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:?}
       MYSQL_PORT: ${MYSQL_PORT:?}
       MYSQL_USER: ${MYSQL_USER:?}
+    hostname: ${HOSTNAME:?}
     labels:
       traefik.enable: true
       traefik.http.routers.tree.rule: Host(`${HOSTNAME:?}`)
