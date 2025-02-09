@@ -1,14 +1,11 @@
 #!/bin/sh
-
-# gdrive backup
-[ ! -d "/root/.duply/tree" ] && duply tree create
-cp /app/duply/conf.cache /root/.duply/tree/conf.cache
-envsubst < /app/duply/conf > /root/.duply/tree/conf
-envsubst < /app/duply/gdrive > /root/.duply/tree/gdrive
-echo "0 2 * * * duply tree backup" | crontab -
+set -e
 
 # webtrees themes
 cp -r /app/webtrees/modules_v4/* /var/www/html/modules_v4/
+
+# webtrees config
+envsubst < /app/webtrees/data/config.ini.php > /var/www/html/data/config.ini.php
 
 # apache2
 cp /app/apache2/.htaccess /var/www/html/

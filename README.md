@@ -28,21 +28,9 @@ Build and start the service.
 make start
 ```
 
-## Backup and Recovery
-
-TODO: Back up to remote storage.
-
 ### Backup
 
-Schedule this backup job on the local machine.
-
-```
-0 22 * * * cd /path/to/repo && ./scripts/backup.sh
-```
-
-- Backs up the MySQL `webtrees` database and `data` directory
-- Zips the backup files and downloads to the local `backup` directory
-- Cleans up local backups greater than 7 days
+Create a tar file of a dump of the `webtrees` database and `data` directory.
 
 ### Recovery
 
@@ -50,7 +38,7 @@ Create the `webtrees` database and user.
 
 Import the MySQL backup.
 
-Restore the `data` directory to `/var/www/html/` in the container and modify `/var/www/html/data/config.ini.php` with latest configs.
+Restore the `data` directory to `./backup/data` and start the service.
 
 
 [repo-vps]: https://github.com/tifa/vps

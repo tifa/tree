@@ -21,13 +21,13 @@ include .env
 exec = @docker exec -it $$(docker ps -asf "name=$(1)" | grep -v CONTAINER | cut -d' ' -f1) bash -c "$(2)"
 
 .git/hooks/pre-commit:
-	$(ACTIVATE) pre-commit install
-	@touch $@
+	@test -d .git && $(ACTIVATE) pre-commit install && touch $@ || true
 
 venv: venv/.touchfile .git/hooks/pre-commit
 venv/.touchfile: requirements.txt
-	test -d venv || virtualenv venv
-	$(ACTIVATE) pip install -Ur requirements.txt
+	@test -d venv || python3 -m venv venv
+	@$(ACTIVATE) pip install uv
+	@$(ACTIVATE) uv pip install -Ur requirements.txt
 	@touch $@
 
 .PHONY: help

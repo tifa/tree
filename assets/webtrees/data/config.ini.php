@@ -1,0 +1,10 @@
+; <?php return; ?> DO NOT DELETE THIS LINE
+dbtype="mysql"
+dbhost="${MYSQL_HOST}"
+dbport="${MYSQL_PORT}"
+dbuser="${MYSQL_USER}"
+dbpass="${MYSQL_PASSWORD}"
+dbname="${MYSQL_DATABASE}"
+tblpfx="wt_"
+base_url="https://${HOSTNAME}"
+rewrite_urls="0"
